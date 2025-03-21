@@ -10,6 +10,7 @@ python = "^3.11"
 django = "^5.1.7"
 whitenoise = "^6.9.0"
 django-csp = "^3.8"
+python-dotenv = "^1.0.1"
 
 
 [build-system]

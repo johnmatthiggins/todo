@@ -19,6 +19,11 @@ load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+PROJECT_DIR = BASE_DIR / "todo"
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
 
 
 # Quick-start development settings - unsuitable for production
@@ -32,7 +37,6 @@ ALLOWED_HOSTS = ['*']
 
 
 INSTALLED_APPS = [
-    "frontend",
     "backend",
     "csp",
     "django.contrib.admin",
@@ -58,7 +62,10 @@ ROOT_URLCONF = "todo.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [
+            BASE_DIR / "templates",
+            PROJECT_DIR / "templates",
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -72,6 +79,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "todo.wsgi.application"
+ASGI_APPLICATION = "todo.asgi.application"
 
 
 # Database
@@ -125,3 +133,31 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+STATICFILES_FINDERS = [
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+]
+
+STATICFILES_DIRS = [
+    PROJECT_DIR / "static",
+    BASE_DIR / "frontend" / "static",
+]
+
+STATIC_ROOT = BASE_DIR / "static"
+STATIC_URL = "/static/"
+
+# Default storage settings, with the staticfiles storage updated.
+# See https://docs.djangoproject.com/en/5.1/ref/settings/#std-setting-STORAGES
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    # ManifestStaticFilesStorage is recommended in production, to prevent
+    # outdated JavaScript / CSS assets being served from cache
+    # (e.g. after a Wagtail upgrade).
+    # See https://docs.djangoproject.com/en/5.1/ref/contrib/staticfiles/#manifeststaticfilesstorage
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage",
+    },
+}

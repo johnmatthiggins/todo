@@ -31,9 +31,10 @@ INTERNAL_IPS = [
 
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "")
 
-DEBUG = True
+DEBUG = os.getenv("DEBUG", "0") == "1"
 
 ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = ["https://127.0.0.1", "https://todo.higgi.nz"]
 
 
 INSTALLED_APPS = [
@@ -49,6 +50,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -82,13 +84,23 @@ WSGI_APPLICATION = "todo.wsgi.application"
 ASGI_APPLICATION = "todo.asgi.application"
 
 
-# Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
+        "OPTIONS": {
+            "init_command": (
+                "PRAGMA foreign_keys=ON;"
+                "PRAGMA journal_mode = WAL;"
+                "PRAGMA synchronous = NORMAL;"
+                "PRAGMA busy_timeout = 5000;"
+                "PRAGMA temp_store = MEMORY;"
+                "PRAGMA mmap_size = 134217728;"
+                "PRAGMA journal_size_limit = 67108864;"
+                "PRAGMA cache_size = 2000;"
+            ),
+            "transaction_mode": "IMMEDIATE",
+        },
     }
 }
 
@@ -142,6 +154,7 @@ STATICFILES_FINDERS = [
 STATICFILES_DIRS = [
     PROJECT_DIR / "static",
     BASE_DIR / "frontend" / "static",
+    BASE_DIR / "frontend" / "dist",
 ]
 
 STATIC_ROOT = BASE_DIR / "static"

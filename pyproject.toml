@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "todo"
+version = "0.1.0"
+description = "A simple todo app for John Higgins to use."
+authors = ["John Higgins <johnmatthiggins@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^5.1.7"
+whitenoise = "^6.9.0"
+django-csp = "^3.8"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

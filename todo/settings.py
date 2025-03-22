@@ -39,6 +39,7 @@ CSRF_TRUSTED_ORIGINS = ["https://127.0.0.1", "https://todo.higgi.nz"]
 
 INSTALLED_APPS = [
     "backend",
+    "frontend",
     "csp",
     "django.contrib.admin",
     "django.contrib.auth",

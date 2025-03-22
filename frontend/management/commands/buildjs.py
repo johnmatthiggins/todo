@@ -3,7 +3,8 @@ import os
 import sys
 
 from django.conf import settings
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
+
 
 class Command(BaseCommand):
     help = "Builds the React.js frontend"
@@ -16,4 +17,3 @@ class Command(BaseCommand):
         args = "npm run build".split(" ")
         sp.run(args)
         sys.exit(0)
-

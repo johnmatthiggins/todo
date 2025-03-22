@@ -1,8 +1,11 @@
+import Home from './Home.tsx';
+import { AuthProvider } from './AuthContext.tsx';
+
 function App() {
   return (
-      <div>
-        <h1>Hello from React.js!</h1>
-      </div>
+      <AuthProvider>
+        <Home />
+      </AuthProvider>
   );
 }
 

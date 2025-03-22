@@ -1,4 +1,4 @@
-{% load static %}
+{% load static tailwind_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +6,7 @@
   <title>Simple TODO</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="description" content="" />
-  <link href="{% static "styles.css" %}" rel="stylesheet">
+  {% tailwind_css %}
 </head>
 <body>
     <div id="root">

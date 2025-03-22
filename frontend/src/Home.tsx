@@ -1,25 +1,9 @@
-import React from 'react';
-
-import AuthContext from './AuthContext.tsx';
+import Login from './Login.tsx';
 
 function Home() {
-  const {
-    loading,
-    refetch,
-  } = React.useContext(AuthContext);
   return (
-    <div className="w-full">
-      <h1 className="text-4xl justify-center">Hello from React.js!</h1>
-      <div className="flex justify-center">
-        <button
-          className="px-4 py-2 bg-blue-500 rounded-md"
-          onClick={() => refetch()}>
-          Refetch
-        </button>
-        {loading && (
-        <span>The page is loading!!!</span>
-        )}
-      </div>
+    <div className="w-full p-4">
+      <Login />
     </div>
   );
 }

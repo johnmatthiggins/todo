@@ -11,6 +11,8 @@ django = "^5.1.7"
 whitenoise = "^6.9.0"
 django-csp = "^3.8"
 python-dotenv = "^1.0.1"
+django-tailwind = {extras = ["reload"], version = "^3.8.0"}
+ruff = "^0.11.2"
 
 
 [build-system]

@@ -6,6 +6,8 @@ function Login() {
 
   return (
     <div>
+      <form action="/accounts/login/" method="POST">
+      </form>
     </div>
   );
 }

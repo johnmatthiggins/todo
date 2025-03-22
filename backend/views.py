@@ -11,9 +11,19 @@ from django.views.decorators.http import require_http_methods
 from django.views.generic import View
 
 
-# Create your views here.
-def home(request):
-    return render(request, "home.html", {})
+@require_http_methods(["GET"])
+async def home(request: HttpRequest) -> HttpResponse:
+    user = await aget_user(request)
+    if not user.is_authenticated:
+        return HttpResponseRedirect("/accounts/login/")
+
+    return render(
+        template_name="home.html",
+        request=request,
+        context={
+            "username": user.username,
+        },
+    )
 
 
 @require_http_methods(["GET"])
@@ -36,7 +46,7 @@ class Login(View):
         )
 
     async def post(self, request):
-        if not "username" in request.POST or not "password" in request.POST:
+        if "username" not in request.POST or "password" not in request.POST:
             return HttpResponseBadRequest()
 
         user = await aauthenticate(

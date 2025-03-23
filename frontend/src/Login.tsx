@@ -1,11 +1,27 @@
-// import React from 'react';
+import React from 'react';
+
 import { Input } from './components/ui/input.tsx';
 import { Button } from './components/ui/button.tsx';
-import { Card, CardContent, CardHeader, CardTitle } from './components/ui/card.tsx';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardDescription,
+  CardTitle,
+} from './components/ui/card.tsx';
 import { Label } from './components/ui/label.tsx';
 import CSRFToken from './CSRFToken.tsx';
 
 function Login() {
+  const { errorMessage } = React.useMemo(() => {
+    const element = document.getElementById('page_data');
+    if (!element?.textContent) {
+      return {
+        errorMessage: null,
+      };
+    }
+    return JSON.parse(element.textContent);
+  }, []);
   return (
     <div className="w-full flex justify-center pt-8">
       <Card className="w-fit">
@@ -13,6 +29,11 @@ function Login() {
           <CardTitle>
             Login
           </CardTitle>
+            {errorMessage && (
+              <CardDescription className="text-red-400">
+                {errorMessage}
+              </CardDescription>
+            )}
         </CardHeader>
         <CardContent>
           <form
@@ -22,10 +43,10 @@ function Login() {
           >
             <CSRFToken />
             <div className="flex flex-col gap-2">
-              <Label htmlFor="id_email">Email</Label>
+              <Label htmlFor="id_username">Username</Label>
               <Input
-                id="id_email"
-                type="email"
+                id="id_username"
+                type="username"
                 name="username"
                 className="w-64"
               />
@@ -39,8 +60,14 @@ function Login() {
                 className="w-64"
               />
             </div>
-            <div>
-              <Button variant="default" type="submit">Login</Button>
+            <div className="w-full">
+              <Button
+                className="bg-orange-300 w-full"
+                variant="outline"
+                type="submit"
+              >
+                Login
+              </Button>
             </div>
           </form>
         </CardContent>

@@ -1,8 +1,10 @@
+import React from 'react';
+
 import getCookie from './getCookie.tsx';
 
 function CSRFToken() {
-  const csrfToken = React.useMemo(() => {
-    return getCookie('csrftoken');
+  const csrfToken: string = React.useMemo(() => {
+    return getCookie('csrftoken') || '';
   }, []);
   return (
     <input type="hidden" name="csrfmiddlewaretoken" value={csrfToken} />
